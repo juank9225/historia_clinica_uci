@@ -23,10 +23,35 @@ public class HistoriaClinicaMedicaChange extends EventChange {
             historiaClinicaMedica.observacion = event.getObservacion();
         });
 
-        apply((EvolucionAgregada event) ->{
+        /*   apply((EvolucionAgregada event) ->{
           var evolucion =  historiaClinicaMedica.getEvolucionPorNumero(event.getNumeroEvolucion())
                     .orElseThrow(()-> new  IllegalArgumentException("No se encontro el estado de la evolucion"));
             evolucion.actualizarEstado(event.getEstado());
+        });
+        */
+
+        apply((NombreDePacienteActualizado event) ->{
+           var paciente = historiaClinicaMedica.getPacientePorId(event.getIdentificacionPaciente())
+                    .orElseThrow(()->new IllegalArgumentException("No se encontro el paciente para el cambio de nombre"));
+            paciente.actualizarNombres(event.getNombres());
+        });
+
+        apply((DireccionDePacienteActualizado event) ->{
+           var paciente = historiaClinicaMedica.getPacientePorId(event.getIdentificacionPaciente())
+                    .orElseThrow(()->new IllegalArgumentException("No se encontrol el paciente para el cambio de direccion"));
+            paciente.actualizarDireccion(event.getDireccion());
+        });
+
+        apply((ContactoDePacienteActualizado event) ->{
+            var paciente =historiaClinicaMedica.getPacientePorId(event.getIdentificacionPaciente())
+                    .orElseThrow(()-> new IllegalArgumentException("No se encontro el paciente para el cambio de contacto"));
+            paciente.actualizarContacto(event.getContacto());
+        });
+
+        apply((acompananteActualizado event)->{
+            var paciente =historiaClinicaMedica.getPacientePorId(event.getIdentificacionPaciente())
+                    .orElseThrow(()->new IllegalArgumentException("No se encontro el paciente para el cambio de acopañante"));
+            paciente.actualizarAcompanante(event.getAcompanante());
         });
 
         apply((EvolucionAgregada event) ->{
@@ -46,5 +71,17 @@ public class HistoriaClinicaMedicaChange extends EventChange {
                     event.getAcompanante()
             ));
         });
+
+        apply((ProfesionalAgregado event) ->{
+            historiaClinicaMedica.profesionalSalud.add(new ProfesionalSalud(
+                    event.getIdentificacionPersonalSalud(),
+                    event.getNombres(),
+                    event.getDireccion(),
+                    event.getContacto(),
+                    event.getProfesion()
+            ));
+        });
+
+
     }
 }

@@ -1,9 +1,11 @@
 package co.com.sofka.historia.historiaClinicaMedica;
 
 import co.com.sofka.domain.generic.AggregateEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 import co.com.sofka.historia.historiaClinicaMedica.events.*;
 import co.com.sofka.historia.historiaClinicaMedica.values.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -23,10 +25,18 @@ public class HistoriaClinicaMedica extends AggregateEvent<Ingreso> {
         appendChange(new MedicamentoAgregado(medicamento)).apply();
     }
 
+    //para crear una historia por primera vez ...
     private HistoriaClinicaMedica(Ingreso entityId){
         super(entityId);
         subscribe(new HistoriaClinicaMedicaChange(this));
 
+    }
+
+    //para crear una historia en vace a los eventos nota:historia ya creada...
+    public static HistoriaClinicaMedica from(Ingreso ingreso, List<DomainEvent> events){
+        var historia = new HistoriaClinicaMedica(ingreso);
+        events.forEach(historia::applyEvent);
+        return historia;
     }
 
     public void agregarEvolucion(NumeroEvolucion entityId, Fecha fecha, Estado estado){
