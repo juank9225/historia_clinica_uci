@@ -16,9 +16,23 @@ public class Contacto implements ValueObject<String> {
         if (this.value.length() > 10){
             throw new IllegalArgumentException("el numero de contacto no es correcto");
         }
+
     }
 
     public String value() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contacto contacto = (Contacto) o;
+        return Objects.equals(value, contacto.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
