@@ -2,9 +2,18 @@ package co.com.sofka.historia.historiaClinicaMedica.values;
 
 import co.com.sofka.domain.generic.ValueObject;
 
-public class Fecha implements ValueObject<String> {
+import java.util.Date;
+import java.util.Objects;
 
-    public String value() {
-        return null;
+public class Fecha implements ValueObject<Date> {
+
+    private final Date value;
+
+    public Fecha(Date value) {
+        this.value = Objects.requireNonNull(value);
+    }
+
+    public Date value() {
+        return value;
     }
 }
