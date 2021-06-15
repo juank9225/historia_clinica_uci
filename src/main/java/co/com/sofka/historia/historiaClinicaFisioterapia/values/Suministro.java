@@ -4,13 +4,13 @@ import co.com.sofka.domain.generic.ValueObject;
 
 import java.util.Objects;
 
-public class SoporteVentilatorio implements ValueObject<String> {
+public class Suministro implements ValueObject<String> {
     private final String value;
 
-    public SoporteVentilatorio(String value) {
+    public Suministro(String value) {
         this.value = Objects.requireNonNull(value);
         if (this.value.isBlank()){
-            throw new IllegalArgumentException("el soporte ventilatorio del paciente no debe ser vacio");
+            throw new IllegalArgumentException("el suministro no debe ser vacio");
         }
     }
 
@@ -22,7 +22,7 @@ public class SoporteVentilatorio implements ValueObject<String> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SoporteVentilatorio that = (SoporteVentilatorio) o;
+        Suministro that = (Suministro) o;
         return Objects.equals(value, that.value);
     }
 

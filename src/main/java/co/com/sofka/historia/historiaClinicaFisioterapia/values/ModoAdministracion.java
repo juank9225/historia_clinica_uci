@@ -4,13 +4,14 @@ import co.com.sofka.domain.generic.ValueObject;
 
 import java.util.Objects;
 
-public class SoporteVentilatorio implements ValueObject<String> {
+public class ModoAdministracion implements ValueObject<String> {
+
     private final String value;
 
-    public SoporteVentilatorio(String value) {
+    public ModoAdministracion(String value) {
         this.value = Objects.requireNonNull(value);
         if (this.value.isBlank()){
-            throw new IllegalArgumentException("el soporte ventilatorio del paciente no debe ser vacio");
+            throw new IllegalArgumentException("el modo de administracion no puede ser vacio");
         }
     }
 
@@ -22,7 +23,7 @@ public class SoporteVentilatorio implements ValueObject<String> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SoporteVentilatorio that = (SoporteVentilatorio) o;
+        ModoAdministracion that = (ModoAdministracion) o;
         return Objects.equals(value, that.value);
     }
 
