@@ -81,21 +81,21 @@ public class HistoriaClinicaMedica extends AggregateEvent<Ingreso> {
         appendChange(new acompananteActualizado(identificacionPaciente,acompanante)).apply();
     }
 
-    public Optional<Paciente> getPacientePorId(IdentificacionPaciente identificacionPaciente){
+    protected Optional<Paciente> getPacientePorId(IdentificacionPaciente identificacionPaciente){
         return pacientes
                 .stream()
                 .filter(paciente ->paciente.identity().equals(identificacionPaciente))
                 .findFirst();
     }
 
-    public Optional<Evolucion> getEvolucionPorNumero(NumeroEvolucion numeroEvolucion){
+    protected Optional<Evolucion> getEvolucionPorNumero(NumeroEvolucion numeroEvolucion){
         return evoluciones
                 .stream()
                 .filter(evolucion -> evolucion.identity().equals(numeroEvolucion))
                 .findFirst();
     }
 
-    public Optional<ProfesionalSalud> getProfesionalSalud(IdentificacionPersonalSalud identificacionPersonalSalud){
+    protected Optional<ProfesionalSalud> getProfesionalSalud(IdentificacionPersonalSalud identificacionPersonalSalud){
         return profesionalSalud
                 .stream()
                 .filter(profesionalSalud -> profesionalSalud.identity().equals(identificacionPersonalSalud))
