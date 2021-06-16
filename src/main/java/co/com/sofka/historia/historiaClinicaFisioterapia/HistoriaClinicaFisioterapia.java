@@ -4,10 +4,8 @@ import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import co.com.sofka.historia.historiaClinicaFisioterapia.events.*;
 import co.com.sofka.historia.historiaClinicaFisioterapia.values.*;
-import co.com.sofka.historia.historiaClinicaMedica.HistoriaClinicaMedica;
-import co.com.sofka.historia.historiaClinicaMedica.HistoriaClinicaMedicaChange;
 import co.com.sofka.historia.historiaClinicaMedica.Paciente;
-import co.com.sofka.historia.historiaClinicaMedica.events.ProfesionalAgregado;
+import co.com.sofka.historia.historiaClinicaMedica.ProfesionalSalud;
 import co.com.sofka.historia.historiaClinicaMedica.values.*;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class HistoriaClinicaFisioterapia extends AggregateEvent<NumeroHistoria> 
     protected Set<ControlDeOxigeno> controlDeOxigenos;
     protected Set<NotaDeCargo> notaDeCargos;
     protected Set<Paciente> pacientes;
-    protected Set<IdentificacionPersonalSalud> identificacionPersonalSaluds;
+    protected Set<ProfesionalSalud> profesionalSaluds;
 
     public HistoriaClinicaFisioterapia(NumeroHistoria Id, Posicion posicion) {
         super(Id);
@@ -41,6 +39,7 @@ public class HistoriaClinicaFisioterapia extends AggregateEvent<NumeroHistoria> 
         events.forEach(historia::applyEvent);
         return historia;
     }
+
     public void agregarControlDeOxigeno(NumeroControlOxigeno entityId, Fecha fecha, InicioControlOxigeno inicio, TerminacionControlOxigeno terminacion, Suministro suministro,LitrosOxigeno litrosOxigeno,ModoAdministracion modoAdministracion){
         Objects.requireNonNull(entityId);
         Objects.requireNonNull(fecha);
@@ -73,4 +72,27 @@ public class HistoriaClinicaFisioterapia extends AggregateEvent<NumeroHistoria> 
         appendChange(new ProfesionalAgregadoFisio(entityId,nombres,direccion,contacto,profesion)).apply();
     }
 
+    public Posicion Posicion() {
+        return posicion;
+    }
+
+    public Ingreso Ingreso() {
+        return ingreso;
+    }
+
+    public Set<ControlDeOxigeno> tControlDeOxigenos() {
+        return controlDeOxigenos;
+    }
+
+    public Set<NotaDeCargo> NotaDeCargos() {
+        return notaDeCargos;
+    }
+
+    public Set<Paciente> Pacientes() {
+        return pacientes;
+    }
+
+    public Set<ProfesionalSalud> getProfesionalSaluds() {
+        return profesionalSaluds;
+    }
 }
